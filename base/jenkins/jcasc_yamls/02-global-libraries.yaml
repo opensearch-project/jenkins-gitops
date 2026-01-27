@@ -1,4 +1,7 @@
 ---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Global Pipeline Libraries Configuration
 #
 # Defines shared pipeline libraries available to all Jenkins jobs.

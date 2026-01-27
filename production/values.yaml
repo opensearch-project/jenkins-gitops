@@ -1,4 +1,7 @@
 ---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Name: production/values.yaml
 # Purpose: Production environment Helm values for Jenkins wrapper chart configuration
 # Description: Environment-specific overrides for production deployment including

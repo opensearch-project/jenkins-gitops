@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Build and push Jenkins Docker image to GitHub Container Registry
 name: Build and Push Jenkins Image
 

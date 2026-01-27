@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Validates Helm charts for Jenkins deployment across all environments.
 # Combines helm lint, template rendering, and kubeconform schema validation.
 

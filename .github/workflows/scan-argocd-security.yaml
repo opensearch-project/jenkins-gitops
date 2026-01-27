@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Scans ArgoCD manifests and configurations for security issues.
 # Combines secret scanning (grep patterns) and policy validation (kube-score + kubeconform).
 

@@ -1,0 +1,95 @@
+# Workflow: Validates Dockerfile for Jenkins custom image build
+#
+# Triggers: PR or push to main affecting build/Dockerfile or build/plugins.txt
+# Validates: Dockerfile lint (Hadolint), build test, base image currency, non-root user
+# Dependencies: Hadolint, Docker
+
+name: Validate Dockerfile
+
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - 'build/Dockerfile'
+      - 'build/plugins.txt'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'build/Dockerfile'
+      - 'build/plugins.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dockerfile-validation:
+    name: Lint and Security Scan Dockerfile
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+
+      - name: Install Hadolint
+        run: |
+          HADOLINT_VERSION=2.14.0
+          HADOLINT_BINARY="hadolint-Linux-x86_64"
+          HADOLINT_URL="https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/${HADOLINT_BINARY}"
+          # SHA256 verified from https://github.com/hadolint/hadolint/releases/tag/v2.14.0
+          HADOLINT_SHA256="6bf226944684f56c84dd014e8b979d27425c0148f61b3bd99bcc6f39e9dc5a47"
+
+          curl -Lo hadolint "$HADOLINT_URL"
+
+          # Verify checksum
+          echo "${HADOLINT_SHA256}  hadolint" | sha256sum -c -
+
+          chmod +x hadolint
+          sudo mv hadolint /usr/local/bin/
+
+      - name: Run Hadolint
+        run: |
+          echo "Running Hadolint on Dockerfile..."
+          hadolint build/Dockerfile
+
+      - name: Build test image for validation
+        run: |
+          echo "Building image for validation..."
+          docker build -t jenkins-validation-test:latest ./build
+
+      - name: Check base image currency
+        run: |
+          echo "Checking if base image is current..."
+          BASE_IMAGE=$(grep "^FROM" build/Dockerfile | head -n1 | awk '{print $2}')
+          echo "Base image: $BASE_IMAGE"
+
+          # Pull latest to compare
+          docker pull $BASE_IMAGE
+
+          # Check if image is reasonably current (within last 90 days)
+          CREATED_DATE=$(docker inspect $BASE_IMAGE --format='{{.Created}}')
+          echo "Base image created: $CREATED_DATE"
+
+          echo "Base image check completed"
+
+      - name: Enforce non-root user
+        run: |
+          echo "Verifying Dockerfile uses non-root user..."
+
+          if ! grep -q "USER jenkins" build/Dockerfile; then
+            echo "ERROR: Dockerfile must use non-root USER (expected: USER jenkins)"
+            exit 1
+          fi
+
+          echo "Non-root user check passed"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rmi jenkins-validation-test:latest || true

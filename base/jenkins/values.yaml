@@ -1,0 +1,64 @@
+---
+# Name: values.yaml
+# Purpose: Base Helm values for Jenkins wrapper chart configuration
+# Description: Establishes default settings for persistence, service accounts,
+# Jenkins controller image, and shared environment variables. JCasC integration
+# moved to environment-specific configScripts. Environment-specific
+# overrides are handled in staging/production values.yaml files.
+#
+# persistence: EBS storage configuration for Jenkins data persistence
+# serviceAccount: Kubernetes service account for Jenkins controller
+# jenkins.controller.image: Container image configuration (lfit/jenkins)
+# jenkins.controller.containerEnv: Shared environment variables
+# jenkins.controller.resources: CPU and memory resource allocation
+# jenkins.controller.javaOpts: JVM optimization for containerized deployment
+
+persistence:
+  enabled: true
+  # Size configured per environment: staging (4Gi), production (16Gi)
+  # Environment-specific storage in: staging/values.yaml and production/values.yaml
+  storageClass: "auto-ebs-sc"
+
+serviceAccount:
+  create: true
+  name: ""
+
+# Pass all configuration to Jenkins subchart
+# Subchart dependency defined in: base/jenkins/Chart.yaml
+jenkins:
+  controller:
+    # JCasC configuration now managed via configScripts in environment values.yaml files
+    # Environment-specific JCasC settings in: staging/values.yaml and production/values.yaml
+
+    # Jenkins Configuration as Code - disable chart defaults globally
+    # All environments use explicit configScripts for GitOps compliance
+    JCasC:
+      defaultConfig: false
+
+    # Container image configuration for Jenkins controller
+    # Base layer provides defaults, environment layers control specific versions
+    # Image versioning and pull policy controlled in: staging/values.yaml and production/values.yaml
+    image:
+      registry: "ghcr.io"
+      repository: "lfit/jenkins"
+      # tag: removed - environment layers specify exact versions
+      # pullPolicy: moved to environment layers for environment-specific optimization
+
+    # Use native Jenkins Helm chart fields instead of JCasC to avoid conflicts
+    # Chart configuration defined in: base/jenkins/Chart.yaml dependencies
+    numExecutors: 0
+    executorMode: EXCLUSIVE
+
+    # JCasC configuration now managed via configScripts in environment values.yaml files
+    # Environment-specific JCasC settings in: staging/values.yaml and production/values.yaml
+
+    # GitHub integration configuration (shared across all environments)
+    # GitHub service account token and API settings
+    containerEnv:
+      - name: JCASC_GITHUB_API_URL
+        value: "https://api.github.com"
+      - name: JCASC_GITHUB_CREDENTIALS_ID
+        value: "github-token"
+
+    # Resource configuration and JVM options moved to environment layers
+    # Environment-specific settings in: staging/values.yaml and production/values.yaml

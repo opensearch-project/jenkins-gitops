@@ -1,0 +1,15 @@
+---
+# Main Jenkins Configuration
+
+# This file acts as the base layer for Jenkins Configuration as Code (JCasC).
+# The "00-" prefix ensures it loads first, establishing core Jenkins settings.
+# This ordering helps maintain clean GitOps deployments and prevents conflicts
+# with other configs.
+#
+# Common settings (executors, systemMessage, etc.) are now managed in
+# values.yaml
+#
+# WHY THIS FILE IS MINIMAL:
+# Core settings are defined in Helm chart values instead of JCasC.
+# This avoids ConfiguratorConflictException with chart defaults
+# (e.g., numExecutors, executorMode, projectNamingStrategy).

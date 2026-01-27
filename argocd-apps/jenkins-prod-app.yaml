@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins-prod
+  namespace: argocd
+spec:
+  project: jenkins
+  source:
+    repoURL: https://github.com/lfit/jenkins-gitops
+    targetRevision: main
+    path: base/jenkins
+    helm:
+      valueFiles:
+        - ../../production/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jenkins-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

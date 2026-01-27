@@ -1,0 +1,91 @@
+name: Deploy Staging Environment
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Jenkins Image"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  update-staging:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Get image tag from build workflow
+        id: get-tag
+        run: |
+          # Get the SHA that triggered the build workflow
+          TRIGGER_SHA="${{ github.event.workflow_run.head_sha }}"
+          if [ -z "$TRIGGER_SHA" ]; then
+            echo "Error: github.event.workflow_run.head_sha is empty or not set. Cannot generate image tag." >&2
+            exit 1
+          fi
+
+          SHORT_SHA=$(echo "$TRIGGER_SHA" | cut -c1-7)
+          IMAGE_TAG="main-${SHORT_SHA}"
+
+          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Generated staging image tag: $IMAGE_TAG"
+
+      - name: Update staging values
+        run: |
+          echo "Updating staging/values.yaml with new image tag: ${{ steps.get-tag.outputs.image-tag }}"
+
+          # Determine repository name (without registry prefix)
+          if [[ "${{ github.repository }}" == "lfit/jenkins-gitops" ]]; then
+            REPOSITORY="lfit/jenkins"
+          else
+            REPOSITORY="${{ github.repository_owner }}/jenkins"
+          fi
+
+          # Update the repository and tag in staging values
+          sed -i "s|repository: \".*\"|repository: \"$REPOSITORY\"|g" staging/values.yaml
+          sed -i "s|tag: \".*\"|tag: \"${{ steps.get-tag.outputs.image-tag }}\"|g" staging/values.yaml
+
+          echo "Updated staging/values.yaml:"
+          cat staging/values.yaml
+
+      - name: Check if changes are needed
+        id: check-changes
+        run: |
+          if git diff --quiet staging/values.yaml; then
+            echo "No changes needed - staging already uses current image tag"
+            echo "needs-update=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected - staging needs tag update"
+            echo "needs-update=true" >> $GITHUB_OUTPUT
+            echo "Current changes:"
+            git diff staging/values.yaml
+          fi
+
+      - name: Create pull request
+        if: steps.check-changes.outputs.needs-update == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            chore: update staging to ${{ steps.get-tag.outputs.image-tag }}
+
+            Triggered by successful image build: ${{ github.event.workflow_run.head_sha }}
+            Enables ArgoCD change detection and deployment automation.
+          title: "chore: update staging to ${{ steps.get-tag.outputs.image-tag }}"
+          body: |
+            Updates staging Jenkins image to newly built version.
+
+            **Image tag:** `${{ steps.get-tag.outputs.image-tag }}`
+            **Triggered by:** ${{ github.event.workflow_run.html_url }}
+            **Build SHA:** ${{ github.event.workflow_run.head_sha }}
+          branch: update-staging-${{ steps.get-tag.outputs.image-tag }}
+          delete-branch: true

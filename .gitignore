@@ -1,0 +1,19 @@
+# Helm artifacts
+*.tgz
+charts/
+tmpcharts/
+
+# Kubernetes output
+*.log
+*.out
+*.pid
+rendered.*
+
+# Editor and system files
+.DS_Store
+*.swp
+.vscode/
+
+# Python bytecode
+__pycache__/
+*.pyc

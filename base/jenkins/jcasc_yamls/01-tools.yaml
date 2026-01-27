@@ -1,0 +1,36 @@
+---
+# Tool Installations Configuration
+#
+# Defines development tools available to Jenkins jobs across all environments.
+# Tools are installed globally and available to all build agents.
+#
+# JDK-17: Java Development Kit for building Java applications
+# GIT: Version control system for source code management
+#
+# These tools use fixed paths and rely on container image installations.
+# Override paths if tools are installed in different locations.
+#
+tool:
+  jdk:
+    installations:
+      - name: "jdk-17"
+        home: "/opt/java/openjdk"
+
+  # Maven Global Configuration
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+
+  # PowerShell installations for cross-platform support
+  powerShell:
+    installations:
+      - name: "DefaultWindows"
+        home: "powershell.exe"
+      - name: "DefaultLinux"
+        home: "pwsh"
+
+  # Git
+  git:
+    installations:
+      - name: "Default"
+        home: "git"

@@ -1,0 +1,83 @@
+# Workflow: Validates Jenkins plugins.txt file for syntax and installability
+#
+# Triggers: PR or push to main affecting build/plugins.txt
+# Validates: Plugin format syntax and successful plugin installation test
+# Dependencies: Docker, jenkins/jenkins image, jenkins-plugin-cli
+
+name: Validate Jenkins Plugins
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'build/plugins.txt'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'build/plugins.txt'
+
+jobs:
+  validate-plugins:
+    name: Validate Plugin Installation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create clean plugins file
+        run: |
+          echo "Creating clean plugins file..."
+
+          # Create a clean file with only non-comment, non-empty lines
+          grep -v "^[[:space:]]*#" build/plugins.txt | grep -v "^[[:space:]]*$" > plugins-clean.txt
+
+          # Check if we have any plugins after filtering
+          if [ ! -s plugins-clean.txt ]; then
+            echo "Error: No valid plugin entries found in plugins.txt"
+            exit 1
+          fi
+
+          echo "Found $(wc -l < plugins-clean.txt) valid plugin entries"
+
+      - name: Validate plugins.txt syntax
+        run: |
+          echo "Checking plugins.txt syntax..."
+
+          # Check for proper plugin format (plugin-name:version or plugin-name)
+          # Only validate non-comment, non-empty lines
+          if grep -qv "^[a-zA-Z0-9][a-zA-Z0-9._-]*\(:[a-zA-Z0-9._-]*\)\?$" plugins-clean.txt; then
+            echo "Error: Invalid plugin format found"
+            echo "Invalid lines:"
+            grep -nv "^[a-zA-Z0-9][a-zA-Z0-9._-]*\(:[a-zA-Z0-9._-]*\)\?$" plugins-clean.txt
+            exit 1
+          fi
+
+          echo "plugins.txt syntax is valid"
+
+      - name: Test plugin installation
+        run: |
+          echo "Testing plugin installation with Jenkins..."
+
+          # Create minimal test Dockerfile using the existing clean plugins file
+          cat > Dockerfile.test << 'EOF'
+          FROM jenkins/jenkins:2.492.3-lts-jdk21
+          USER root
+          COPY plugins-clean.txt /tmp/plugins.txt
+          USER jenkins
+          RUN jenkins-plugin-cli --verbose --plugin-file /tmp/plugins.txt
+          EOF
+
+          # Build test image
+          docker build -f Dockerfile.test -t jenkins-plugin-test .
+
+          echo "All plugins installed successfully"
+
+      - name: Check for plugin conflicts
+        run: |
+          echo "Checking for known plugin conflicts..."
+
+          # Create test container to check installed plugins
+          docker run --rm jenkins-plugin-test jenkins-plugin-cli --list > installed-plugins.txt

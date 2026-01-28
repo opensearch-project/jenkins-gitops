@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+-->
+
 # Jenkins GitOps
 
 **Repository:** https://github.com/lfit/jenkins-gitops
@@ -51,7 +56,8 @@ jenkins-gitops/
 
 ## Support
 
-For issues, questions, or support requests, open a ticket at [support.linuxfoundation.org](https://support.linuxfoundation.org).
+- **Configuration and build-related issues**: Open a [GitHub issue](https://github.com/opensearch-project/jenkins-gitops/issues) for Jenkins configuration, build failures, agent management, or repository-related questions
+- **Infrastructure and platform issues**: Open a ticket at [support.linuxfoundation.org](https://support.linuxfoundation.org) for cluster, networking, or underlying infrastructure problems
 
 ## Project Status
 

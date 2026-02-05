@@ -405,22 +405,8 @@ jenkins:
             name: onepassword-sa-token
             key: token
 
-      # LF Releng 1Password CLI Service Account Token
-      - name: OP_SERVICE_ACCOUNT_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: onepassword-sa-token
-            key: token
-
       # Opensearch 1Password Service Account Token (ESO-managed from 1Password)
       - name: OPENSEARCH_ONEPASSWORD_SA_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: opensearch-onepassword-sa-token
-            key: token
-
-      # Opensearch 1Password CLI Service Account Token (ESO-managed from 1Password)
-      - name: OPENSEARCH_OP_SERVICE_ACCOUNT_TOKEN
         valueFrom:
           secretKeyRef:
             name: opensearch-onepassword-sa-token

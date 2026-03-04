@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Workflow: Validates Jenkins Configuration as Code (JCasC) YAML files
 #
 # Triggers: PR or push to main affecting base/jenkins/jcasc_yamls/ or jcasc-schema.json

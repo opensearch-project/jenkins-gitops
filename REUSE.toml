@@ -1,0 +1,14 @@
+version = 1
+
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
+# Licensing statement required for GHA tests and linting to pass for only this repository
+
+[[annotations]]
+path = [
+    "base/jenkins/Chart.lock",
+    "base/jenkins/templates/_helpers.tpl"
+]
+SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileCopyrightText = "2026 OpenSearch Contributors"

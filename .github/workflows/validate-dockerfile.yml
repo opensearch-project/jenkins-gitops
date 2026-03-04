@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Workflow: Validates Dockerfile for Jenkins custom image build
 #
 # Triggers: PR or push to main affecting build/Dockerfile or build/plugins.txt

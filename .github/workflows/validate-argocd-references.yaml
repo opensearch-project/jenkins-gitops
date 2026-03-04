@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Workflow: Validates referential integrity of ArgoCD Application manifests
 #
 # Triggers: PR or push to main affecting argocd-apps/

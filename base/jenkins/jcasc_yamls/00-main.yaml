@@ -1,4 +1,7 @@
 ---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Main Jenkins Configuration
 
 # This file acts as the base layer for Jenkins Configuration as Code (JCasC).

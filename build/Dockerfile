@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 FROM jenkins/jenkins:2.492.3-lts-jdk21
 
 # Set maintainer and disable setup wizard

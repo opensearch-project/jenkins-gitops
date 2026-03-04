@@ -1,4 +1,7 @@
 ---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Name: values.yaml
 # Purpose: Base Helm values for Jenkins wrapper chart configuration
 # Description: Establishes default settings for persistence, service accounts,

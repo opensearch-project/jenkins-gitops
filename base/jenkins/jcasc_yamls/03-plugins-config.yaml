@@ -1,4 +1,7 @@
 ---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Plugin Configuration Settings
 #
 # Plugin-specific configurations for GitHub integration and pull

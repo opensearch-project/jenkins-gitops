@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 OpenSearch Contributors
+
 # Workflow: Validates Jenkins plugins.txt file for syntax and installability
 #
 # Triggers: PR or push to main affecting build/plugins.txt

@@ -204,7 +204,7 @@ jenkins:
                       idleTerminationMinutes: "60"
                       initScript: >
                         docker ps && sudo apt-get update -y && sudo env "DEBIAN_FRONTEND=noninteractive" apt-get upgrade -y &&
-                        sudo update-alternatives --set "java" "/usr/lib/jvm/temurin-17-jdk-amd64/bin/java" && java -version
+                        sudo update-alternatives --set "java" "/usr/lib/jvm/temurin-21-jdk-amd64/bin/java" && java -version
                       labelString: "Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
                       launchTimeoutStr: "300"
                       maxTotalUses: 10
@@ -227,7 +227,7 @@ jenkins:
                       useEphemeralDevices: false
                       tags:
                         - name: Name
-                          value: "Jenkinsi-Staging/AgentNode/Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
+                          value: "Jenkins-Staging/AgentNode/Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
                         - name: type
                           value: "jenkinsAgentNode-Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
                       nodeProperties:

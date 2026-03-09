@@ -188,46 +188,74 @@ jenkins:
                   useInstanceProfileForCredentials: false
                   sshKeysCredentialsId: "opensearch-ec2-key"
                   templates:
-                    - ami: "ami-0095b2d932ba790f3"
+                    - ami: "ami-0a0054390037a45f4"
                       amiType:
                         unixData:
                           sshPort: "22"
                       associatePublicIp: false
                       connectBySSHProcess: false
                       connectionStrategy: PRIVATE_IP
-                      customDeviceMapping: "/dev/xvda=:300:true:::encrypted"
+                      customDeviceMapping: "/dev/sda1=:300:true:::encrypted"
                       deleteRootOnTermination: true
-                      description: "jenkins-agent-staging-test"
+                      description: "jenkinsAgentNode-Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
                       ebsEncryptRootVolume: ENCRYPTED
                       ebsOptimized: false
                       hostKeyVerificationStrategy: OFF
                       idleTerminationMinutes: "60"
                       initScript: >
-                        sudo dnf clean all && sudo rm -rf /var/cache/dnf && sudo dnf repolist &&
-                        sudo dnf update --releasever=latest --skip-broken --exclude=openssh*
-                        --exclude=docker* --exclude=gh* --exclude=openssl* -y &&
-                        sudo dnf install -y java-17-openjdk-devel git &&
-                        docker ps
-                      labelString: "jenkins-agent-staging-test"
+                        docker ps && sudo apt-get update -y && sudo env "DEBIAN_FRONTEND=noninteractive" apt-get upgrade -y &&
+                        sudo update-alternatives --set "java" "/usr/lib/jvm/temurin-21-jdk-amd64/bin/java" && java -version
+                      labelString: "Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
                       launchTimeoutStr: "300"
                       maxTotalUses: 10
                       metadataEndpointEnabled: true
                       metadataHopsLimit: "2"
                       metadataTokensRequired: true
                       minimumNumberOfInstances: 0
-                      minimumNumberOfSpareInstances: 0
-                      mode: NORMAL
+                      minimumNumberOfSpareInstances: 1
+                      mode: "EXCLUSIVE"
                       monitoring: false
-                      numExecutors: "1"
-                      remoteAdmin: "ec2-user"
-                      remoteFS: "/home/ec2-user"
+                      numExecutors: 1
+                      remoteAdmin: "ubuntu"
+                      remoteFS: "/var/jenkins"
                       securityGroups: "jenkins-worker"
                       subnetId: "subnet-04399db8294cd0293 subnet-0ef5970bb206ba8d6 subnet-0134f063a963ef06e"
                       stopOnTerminate: false
                       t2Unlimited: false
                       tenancy: Default
-                      type: "c5.4xlarge"
+                      type: "m5.2xlarge"
                       useEphemeralDevices: false
+                      tags:
+                        - name: Name
+                          value: "Jenkins-Staging/AgentNode/Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
+                        - name: type
+                          value: "jenkinsAgentNode-Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
+                      nodeProperties:
+                        - envVars:
+                            env:
+                              - key: JENKINS_HOME_PATH
+                                value: "/var/jenkins"
+                              - key: JAVA8_HOME
+                                value: "/usr/lib/jvm/temurin-8-jdk-amd64"
+                              - key: JAVA11_HOME
+                                value: "/usr/lib/jvm/temurin-11-jdk-amd64"
+                              - key: JAVA14_HOME
+                                value: "/usr/lib/jvm/adoptopenjdk-14-amd64"
+                              - key: JAVA17_HOME
+                                value: "/usr/lib/jvm/temurin-17-jdk-amd64"
+                              - key: JAVA19_HOME
+                                value: "/usr/lib/jvm/jdk-19"
+                              - key: JAVA20_HOME
+                                value: "/usr/lib/jvm/jdk-20"
+                              - key: JAVA21_HOME
+                                value: "/usr/lib/jvm/temurin-21-jdk-amd64"
+                              - key: JAVA23_HOME
+                                value: "/usr/lib/jvm/temurin-23-jdk-amd64"
+                              - key: JAVA24_HOME
+                                value: "/usr/lib/jvm/temurin-24-jdk-amd64"
+                              - key: JAVA25_HOME
+                                value: "/usr/lib/jvm/temurin-25-jdk-amd64"
+                      # TODO: iamInstanceProfile
                     - ami: "ami-057958fcf37e192f1"
                       amiType:
                         unixData:

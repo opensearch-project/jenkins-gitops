@@ -332,7 +332,7 @@ jenkins:
                       tenancy: Default
                       type: "c6g.4xlarge"
                       useEphemeralDevices: false
-                    - ami: "ami-******"
+                    - ami: "ami-057958fcf37e192f1"
                       amiType:
                         unixData:
                           sshPort: "22"

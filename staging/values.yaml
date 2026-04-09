@@ -401,7 +401,7 @@ jenkins:
                               - key: JAVA25_HOME
                                 value: "/usr/lib/jvm/temurin-25-jdk-amd64"
                       # TODO: iamInstanceProfile
-                    - ami: "ami-******"
+                    - ami: "ami-064a204f1888da70b"
                       amiType:
                         unixData:
                           sshPort: "22"

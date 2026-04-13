@@ -375,31 +375,6 @@ jenkins:
                           value: "Jenkins-Staging/AgentNode/Jenkins-Agent-AL2023-X64-M54xlarge-Docker-Host"
                         - name: type
                           value: "jenkinsAgentNode-Jenkins-Agent-AL2023-X64-M54xlarge-Docker-Host"
-                      nodeProperties:
-                        - envVars:
-                            env:
-                              - key: JENKINS_HOME_PATH
-                                value: "/var/jenkins"
-                              - key: JAVA8_HOME
-                                value: "/usr/lib/jvm/temurin-8-jdk-amd64"
-                              - key: JAVA11_HOME
-                                value: "/usr/lib/jvm/temurin-11-jdk-amd64"
-                              - key: JAVA14_HOME
-                                value: "/usr/lib/jvm/adoptopenjdk-14-amd64"
-                              - key: JAVA17_HOME
-                                value: "/usr/lib/jvm/temurin-17-jdk-amd64"
-                              - key: JAVA19_HOME
-                                value: "/usr/lib/jvm/jdk-19"
-                              - key: JAVA20_HOME
-                                value: "/usr/lib/jvm/jdk-20"
-                              - key: JAVA21_HOME
-                                value: "/usr/lib/jvm/temurin-21-jdk-amd64"
-                              - key: JAVA23_HOME
-                                value: "/usr/lib/jvm/temurin-23-jdk-amd64"
-                              - key: JAVA24_HOME
-                                value: "/usr/lib/jvm/temurin-24-jdk-amd64"
-                              - key: JAVA25_HOME
-                                value: "/usr/lib/jvm/temurin-25-jdk-amd64"
                       # TODO: iamInstanceProfile
                     - ami: "ami-064a204f1888da70b"
                       amiType:
@@ -444,31 +419,6 @@ jenkins:
                           value: "Jenkins-Staging/AgentNode/Jenkins-Agent-AL2023-Arm64-M6g4xlarge-Docker-Host"
                         - name: type
                           value: "jenkinsAgentNode-Jenkins-Agent-AL2023-Arm64-M6g4xlarge-Docker-Host"
-                      nodeProperties:
-                        - envVars:
-                            env:
-                              - key: JENKINS_HOME_PATH
-                                value: "/var/jenkins"
-                              - key: JAVA8_HOME
-                                value: "/usr/lib/jvm/temurin-8-jdk-amd64"
-                              - key: JAVA11_HOME
-                                value: "/usr/lib/jvm/temurin-11-jdk-amd64"
-                              - key: JAVA14_HOME
-                                value: "/usr/lib/jvm/adoptopenjdk-14-amd64"
-                              - key: JAVA17_HOME
-                                value: "/usr/lib/jvm/temurin-17-jdk-amd64"
-                              - key: JAVA19_HOME
-                                value: "/usr/lib/jvm/jdk-19"
-                              - key: JAVA20_HOME
-                                value: "/usr/lib/jvm/jdk-20"
-                              - key: JAVA21_HOME
-                                value: "/usr/lib/jvm/temurin-21-jdk-amd64"
-                              - key: JAVA23_HOME
-                                value: "/usr/lib/jvm/temurin-23-jdk-amd64"
-                              - key: JAVA24_HOME
-                                value: "/usr/lib/jvm/temurin-24-jdk-amd64"
-                              - key: JAVA25_HOME
-                                value: "/usr/lib/jvm/temurin-25-jdk-amd64"
                       # TODO: iamInstanceProfile
 
         credentials-config: |

@@ -29,8 +29,8 @@ jenkins:
     # Pull policy optimized for staging (caching enabled)
     image:
       registry: "ghcr.io"
-      repository: "lfit/jenkins"
-      tag: "main-2b06ad4"
+      repository: "opensearch-project/jenkins"
+      tag: "main-5fbbea1"
       pullPolicy: "IfNotPresent"
 
     # Lifecycle hooks to fix 1Password CLI directory permissions after fsGroup applies

@@ -202,7 +202,7 @@ jenkins:
                         docker ps && sudo apt-get update -y && sudo env "DEBIAN_FRONTEND=noninteractive" apt-get upgrade -y &&
                         sudo update-alternatives --set "java" "/usr/lib/jvm/temurin-21-jdk-amd64/bin/java" && java -version
                       labelString: "Jenkins-Agent-Ubuntu2404-X64-M52xlarge-Docker-Builder"
-                      launchTimeoutStr: "300"
+                      launchTimeoutStr: "600"
                       maxTotalUses: 10
                       metadataEndpointEnabled: true
                       metadataHopsLimit: "2"

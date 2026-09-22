@@ -29,8 +29,8 @@ jenkins:
     # Pull policy set to Always for latest security updates
     image:
       registry: "ghcr.io"
-      repository: "lfit/jenkins"
-      tag: "main-2b06ad4"
+      repository: "opensearch-project/jenkins"
+      tag: "main-31e8294"
 
     # Lifecycle hooks to fix 1Password CLI directory permissions after fsGroup applies
     lifecycle:

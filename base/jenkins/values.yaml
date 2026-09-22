@@ -40,7 +40,7 @@ jenkins:
     # Image versioning and pull policy controlled in: staging/values.yaml and production/values.yaml
     image:
       registry: "ghcr.io"
-      repository: "lfit/jenkins"
+      repository: "opensearch-project/jenkins"
       # tag: removed - environment layers specify exact versions
       # pullPolicy: moved to environment layers for environment-specific optimization
 

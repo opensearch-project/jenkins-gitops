@@ -128,7 +128,7 @@ jenkins:
 jenkins:
   controller:
     image:
-      tag: "main-2b06ad4"
+      tag: "main-31e8294"
       pullPolicy: "IfNotPresent"
 ```
 

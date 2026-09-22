@@ -408,7 +408,7 @@ jenkins:
                         - name: type
                           value: "jenkinsAgentNode-Jenkins-Agent-AL2023-Arm64-M6g4xlarge-Docker-Host"
                       iamInstanceProfile: "arn:aws:iam::156041419073:instance-profile/opensearch-jenkins-production-agent-node-role"
-                    - ami: "ami-072cf28625cc45a6c"
+                    - ami: "ami-04076d0820d943dd2"
                       amiType:
                         windowsSSHData:
                           sshPort: "22"
@@ -451,7 +451,7 @@ jenkins:
                         - name: type
                           value: "jenkinsAgentNode-Jenkins-Agent-Windows2019-X64-M54xlarge-Docker-Host"
                       iamInstanceProfile: "arn:aws:iam::156041419073:instance-profile/opensearch-jenkins-production-agent-node-role"
-                    - ami: "ami-072cf28625cc45a6c"
+                    - ami: "ami-04076d0820d943dd2"
                       amiType:
                         windowsSSHData:
                           sshPort: "22"

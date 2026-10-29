@@ -636,20 +636,6 @@ jenkins:
                   credentialsId: "${GITHUB_CREDENTIALS_ID}"
               hookUrl: "${JENKINS_URL}/github-webhook/"
 
-            # GitHub Pull Request Builder configuration
-            ghprbTrigger:
-              cron: "H/5 * * * *"
-              githubAuth:
-                - id: "opensearch-project-ghprb-auth"
-                  serverAPIUrl: "${GITHUB_API_URL}"
-                  credentialsId: "${GITHUB_CREDENTIALS_ID}"
-                  description: "GitHub auth for opensearch-project PR builder"
-              adminlist: ""
-              manageWebhooks: false
-              okToTestPhrase: ".*ok to test.*"
-              retestPhrase: ".*test this please.*"
-              skipBuildPhrase: ".*\\[skip ci\\].*"
-
         tool-config: |
           tool:
             # Java Development Kit configuration

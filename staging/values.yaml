@@ -184,7 +184,7 @@ jenkins:
                   useInstanceProfileForCredentials: false
                   sshKeysCredentialsId: "opensearch-ec2-key"
                   templates:
-                    - ami: "ami-0be993abb232bc455"
+                    - ami: "ami-04e7b4a436bb4ec57"
                       amiType:
                         unixData:
                           sshPort: "22"

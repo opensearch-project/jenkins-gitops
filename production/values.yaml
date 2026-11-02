@@ -30,7 +30,8 @@ jenkins:
     image:
       registry: "ghcr.io"
       repository: "opensearch-project/jenkins"
-      tag: "main-7802eb6"
+      tag: "main-5b0f551"
+      pullPolicy: "Always"
 
     # Lifecycle hooks to fix 1Password CLI directory permissions after fsGroup applies
     lifecycle:

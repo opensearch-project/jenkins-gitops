@@ -9,9 +9,13 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
 # Switch to root for install
 USER root
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Echo build info
 RUN echo "Building custom Jenkins image for OpenSearch"
+
+# Patch base image packages
+RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install system packages and dependencies
 RUN apt-get update && apt-get install -y \

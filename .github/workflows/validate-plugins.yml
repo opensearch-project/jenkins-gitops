@@ -63,7 +63,7 @@ jobs:
 
           # Create minimal test Dockerfile using the existing clean plugins file
           cat > Dockerfile.test << 'EOF'
-          FROM jenkins/jenkins:2.492.3-lts-jdk21
+          FROM jenkins/jenkins:2.580.2-lts-jdk21
           USER root
           COPY plugins-clean.txt /tmp/plugins.txt
           USER jenkins

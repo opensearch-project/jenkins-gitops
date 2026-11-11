@@ -102,9 +102,7 @@ jenkins:
                 disableSyntaxHighlighting: true
 
             # CSRF protection configuration
-            crumbIssuer:
-              standard:
-                excludeClientIPFromCrumb: false
+            crumbIssuer: "standard"
 
             # Disable "Remember me" for enhanced security
             disableRememberMe: true
@@ -441,50 +439,6 @@ jenkins:
                           value: "Jenkins-Staging/AgentNode/Jenkins-Agent-Windows2019-X64-M54xlarge-Docker-Builder"
                         - name: type
                           value: "jenkinsAgentNode-Jenkins-Agent-Windows2019-X64-M54xlarge-Docker-Builder"
-                      iamInstanceProfile: "arn:aws:iam::156041419073:instance-profile/opensearch-jenkins-staging-agent-node-role"
-                    - ami: "ami-046dd593593ebe519"
-                      amiType:
-                        windowsData:
-                          allowSelfSignedCertificate: false
-                          bootDelay: "180"
-                          specifyPassword: false
-                          useHTTPS: false
-                      associatePublicIp: false
-                      connectBySSHProcess: false
-                      connectionStrategy: PRIVATE_IP
-                      customDeviceMapping: "/dev/sda1=:300:true:::encrypted"
-                      deleteRootOnTermination: true
-                      description: "jenkinsAgentNode-Jenkins-Agent-Windows2019-X64-C524xlarge-Single-Host"
-                      ebsEncryptRootVolume: ENCRYPTED
-                      ebsOptimized: true
-                      hostKeyVerificationStrategy: OFF
-                      idleTerminationMinutes: "120"
-                      initScript: "echo"
-                      labelString: "Jenkins-Agent-Windows2019-X64-C524xlarge-Single-Host"
-                      launchTimeoutStr: "1700"
-                      maxTotalUses: 1
-                      metadataEndpointEnabled: true
-                      metadataHopsLimit: "2"
-                      metadataTokensRequired: true
-                      minimumNumberOfInstances: 0
-                      minimumNumberOfSpareInstances: 0
-                      mode: "EXCLUSIVE"
-                      monitoring: false
-                      numExecutors: 1
-                      remoteAdmin: "Administrator"
-                      remoteFS: "C:/Users/Administrator/jenkins"
-                      securityGroups: "jenkins-worker"
-                      subnetId: "subnet-04399db8294cd0293 subnet-0ef5970bb206ba8d6 subnet-0134f063a963ef06e"
-                      stopOnTerminate: false
-                      t2Unlimited: false
-                      tenancy: Default
-                      type: "C524xlarge"
-                      useEphemeralDevices: false
-                      tags:
-                        - name: Name
-                          value: "Jenkins-Staging/AgentNode/Jenkins-Agent-Windows2019-X64-C524xlarge-Single-Host"
-                        - name: type
-                          value: "jenkinsAgentNode-Jenkins-Agent-Windows2019-X64-C524xlarge-Single-Host"
                       iamInstanceProfile: "arn:aws:iam::156041419073:instance-profile/opensearch-jenkins-staging-agent-node-role"
                     - ami: "ami-0cc040b02d578cf5a"
                       amiType:

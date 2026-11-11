@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.492.3-lts-jdk21
+FROM jenkins/jenkins:2.580.2-lts-jdk21
 
 # Set maintainer and disable setup wizard
 LABEL maintainer="OpenSearch Staging Environment"
@@ -55,7 +55,7 @@ RUN pip3 install --no-cache-dir --break-system-packages \
     pyyaml \
     requests==2.32.0 \
     docker==6.1.3 \
-    packaging==24.1 \
+    packaging==25.0 \
     pipenv \
     awscli
 

@@ -690,6 +690,17 @@ jenkins:
                 opCLIPath: "/usr/local/bin"
                 serviceAccountCredentialId: "opensearch-1password-service-account"
 
+            # AWS Secrets Manager Credentials Provider: only list prod secrets
+            awsCredentialsProvider:
+              listSecrets:
+                filters:
+                  - key: "tag-key"
+                    values:
+                      - "jenkins:environment"
+                  - key: "tag-value"
+                    values:
+                      - "prod"
+
             # GitHub plugin configuration
             gitHubConfiguration:
               apiRateLimitChecker: ThrottleForNormalize

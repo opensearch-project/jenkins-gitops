@@ -3,6 +3,7 @@
 unclassified:
   configFileProvider:
     configs:
+      {}
       # Example managed file configurations
       # Communities can add their own managed files here
       # - providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"

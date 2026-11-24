@@ -6,6 +6,11 @@
 #
 # These settings control how Jenkins interacts with GitHub repositories.
 #
+# LOCATION CONFIGURATION:
+# - url: Jenkins root URL. Used by the SAML plugin to build the SP entity
+#        ID and ACS URL, and must match the public ingress hostname. This
+#        is not using the default JCasC, so this needs to be set manually.
+#
 # GITHUB PLUGIN CONFIGURATION:
 # - apiRateLimitChecker: GitHub API rate limiting strategy
 # - credentialsId: Reference to GitHub API token credential
@@ -23,6 +28,9 @@
 # Currently uses placeholder values - update with actual credentials and URLs.
 #
 unclassified:
+  location:
+    url: "${JCASC_JENKINS_URL}"
+
   gitHubConfiguration:
     apiRateLimitChecker: ThrottleForNormalize
 

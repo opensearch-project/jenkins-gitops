@@ -679,6 +679,12 @@ jenkins:
 
         unclassified-config: |
           unclassified:
+            # Jenkins root URL. Used by the SAML plugin to build the SP entity
+            # ID and ACS URL, and must match the public ingress hostname. This
+            # is not using the default JCasC, so this needs to be set manually.
+            location:
+              url: "${JCASC_JENKINS_URL}"
+
             1Password Config:
               config:
                 opCLIPath: "/usr/local/bin"
@@ -692,7 +698,7 @@ jenkins:
               configs:
                 - name: "opensearch-project"
                   credentialsId: "${GITHUB_CREDENTIALS_ID}"
-              hookUrl: "${JENKINS_URL}/github-webhook/"
+              hookUrl: "${JENKINS_URL}github-webhook/"
 
         tool-config: |
           tool:

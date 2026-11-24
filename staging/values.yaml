@@ -586,6 +586,17 @@ jenkins:
                 opCLIPath: "/usr/local/bin"
                 serviceAccountCredentialId: "opensearch-1password-service-account-staging"
 
+            # AWS Secrets Manager Credentials Provider: only list staging secrets
+            awsCredentialsProvider:
+              listSecrets:
+                filters:
+                  - key: "tag-key"
+                    values:
+                      - "jenkins:environment"
+                  - key: "tag-value"
+                    values:
+                      - "staging"
+
             # GitHub plugin configuration
             gitHubConfiguration:
               apiRateLimitChecker: ThrottleForNormalize

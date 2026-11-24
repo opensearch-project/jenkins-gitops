@@ -1,4 +1,11 @@
 ---
+# !! NOT DEPLOYED: REFERENCE / VALIDATION ONLY !!
+# Nothing in this chart renders the files in base/jenkins/jcasc_yamls/, so
+# Jenkins never loads them. They are only linted and schema-checked by
+# .github/workflows/validate-jcasc.yaml. The live JCasC is the
+# jenkins.controller.JCasC.configScripts block in staging/values.yaml and
+# production/values.yaml: change it there, or the change won't take effect.
+#
 # Main Jenkins Configuration
 
 # This file acts as the base layer for Jenkins Configuration as Code (JCasC).

@@ -54,7 +54,8 @@ jobs:
           set -euo pipefail
           # Pin versions for reproducibility
           npm install -g ajv-cli@5.0.0 ajv-formats@3.0.1
-          ajv --version
+          # ajv-cli 5 has no --version flag; report installed versions via npm
+          npm ls -g --depth=0 ajv-cli ajv-formats
 
       - name: Validate JCasC against schema
         run: |
@@ -88,7 +89,6 @@ jobs:
               -d "$file" \
               -c ajv-formats \
               --strict=false \
-              --yaml \
               --spec=draft2020 \
               --all-errors; then
               failed_files+=("$file")

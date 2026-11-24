@@ -1,6 +1,7 @@
 # Workflow: Validates Jenkins Configuration as Code (JCasC) YAML files
 #
-# Triggers: PR or push to main affecting base/jenkins/jcasc_yamls/ or jcasc-schema.json
+# Triggers: PR or push to main affecting base/jenkins/jcasc_yamls/, jcasc-schema.json,
+#           or this workflow file
 # Validates: YAML syntax (yamllint) and JCasC schema compliance (ajv-cli)
 # Dependencies: action-yamllint, Node.js, ajv-cli, ajv-formats
 
@@ -13,12 +14,14 @@ name: Validate JCasC Configuration
     paths:
       - 'base/jenkins/jcasc_yamls/**'
       - 'base/jenkins/jcasc-schema.json'
+      - '.github/workflows/validate-jcasc.yaml'
   pull_request:
     branches:
       - main
     paths:
       - 'base/jenkins/jcasc_yamls/**'
       - 'base/jenkins/jcasc-schema.json'
+      - '.github/workflows/validate-jcasc.yaml'
 
 permissions:
   contents: read
